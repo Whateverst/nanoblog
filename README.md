@@ -7,5 +7,3 @@
 * komentowanie wpisów,
 * ocenianie wpisów,
 * główna strona wyświetlająca wszystkie wpisy (sortowanie według dat, lub według ocen użytkowników).
-
-
