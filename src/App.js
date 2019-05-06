@@ -11,6 +11,9 @@ import firebaseConfig from './firebaseConfig.js';
 //components
 import Topbar from './components/Topbar';
 
+//components
+import Topbar from './components/Topbar';
+
 class App extends Component {
 
   componentWillMount() {
