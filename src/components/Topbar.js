@@ -16,27 +16,31 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-
 class UserLoginRegisterModal extends React.Component {
-
   constructor(...args) {
     super(...args);
-    this.state = {email:"", password:""};
+    this.state = { email: "", password: "" };
   }
 
   register = (email, password) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-      alert("Coś poszło nie tak, spróbuj jeszcze raz!");
-      console.log(error.message);
-    });
-  }
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(function(error) {
+        alert("Coś poszło nie tak, spróbuj jeszcze raz!");
+        console.log(error.message);
+      });
+  };
 
   login = (email, password) => {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-      alert("Coś poszło nie tak, spróbuj jeszcze raz!");
-      console.log(error.message);
-    });
-  }
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(function(error) {
+        alert("Coś poszło nie tak, spróbuj jeszcze raz!");
+        console.log(error.message);
+      });
+  };
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -59,19 +63,41 @@ class UserLoginRegisterModal extends React.Component {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Adres e-mail</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" onChange={this.handleChange("email")}/>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                onChange={this.handleChange("email")}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Hasło</Form.Label>
-              <Form.Control type="password" placeholder="Password" onChange={this.handleChange("password")}/>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={this.handleChange("password")}
+              />
             </Form.Group>
 
-            <Button variant="primary" onClick={() => {this.register(this.state.email, this.state.password); this.props.onHide();}} style={{marginRight: "5px"}}>
+            <Button
+              variant="primary"
+              onClick={() => {
+                this.register(this.state.email, this.state.password);
+                this.props.onHide();
+              }}
+              style={{ marginRight: "5px" }}
+            >
               Zarejestruj się
             </Button>
-            
-            <Button variant="primary" onClick={() => {this.login(this.state.email, this.state.password); this.props.onHide()}} style={{marginRight: "5px"}}>
+
+            <Button
+              variant="primary"
+              onClick={() => {
+                this.login(this.state.email, this.state.password);
+                this.props.onHide();
+              }}
+              style={{ marginRight: "5px" }}
+            >
               Zaloguj się
             </Button>
           </Form>
@@ -92,8 +118,10 @@ class Topbar extends React.Component {
   }
 
   render() {
-    let modalClose = () => {this.setState({ modalShow: false });
-                            this.props.checkLogin();};
+    let modalClose = () => {
+      this.setState({ modalShow: false });
+      this.props.checkLogin();
+    };
 
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -108,7 +136,10 @@ class Topbar extends React.Component {
             <NavLink href="#add">Dodaj post</NavLink>
           </Nav>
         </Navbar.Collapse>
-        <UserLoginRegisterModal show={this.state.modalShow} onHide={modalClose}/>
+        <UserLoginRegisterModal
+          show={this.state.modalShow}
+          onHide={modalClose}
+        />
       </Navbar>
     );
   }

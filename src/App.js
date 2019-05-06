@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 import * as firebase from "firebase/app";
 
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
-import firebaseConfig from './firebaseConfig.js';
+import firebaseConfig from "./firebaseConfig.js";
 
 //components
-import Topbar from './components/Topbar';
+import Topbar from "./components/Topbar";
 
 class App extends Component {
-
   constructor(...args) {
     super(...args);
-    this.state = {logged: false};
+    this.state = { logged: false };
     this.userLoggedIn = this.userLoggedIn.bind(this);
   }
 
@@ -23,7 +22,7 @@ class App extends Component {
   }
 
   userLoggedIn = () => {
-    this.setState({logged:true,})
+    this.setState({ logged: true });
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         var displayName = user.displayName;
@@ -37,12 +36,12 @@ class App extends Component {
       } else {
       }
     });
-  }
+  };
 
   render() {
     return (
       <div className="App">
-       <Topbar checkLogin={this.userLoggedIn}></Topbar>
+        <Topbar checkLogin={this.userLoggedIn} />
       </div>
     );
   }
