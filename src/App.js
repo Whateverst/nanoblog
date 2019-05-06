@@ -10,20 +10,39 @@ import firebaseConfig from './firebaseConfig.js';
 //components
 import Topbar from './components/Topbar';
 
-//components
-import Topbar from './components/Topbar';
-
 class App extends Component {
+
+  constructor(...args) {
+    super(...args);
+    this.state = {logged: false};
+    this.userLoggedIn = this.userLoggedIn.bind(this);
+  }
 
   componentWillMount() {
     firebase.initializeApp(firebaseConfig);
   }
 
+  userLoggedIn = () => {
+    this.setState({logged:true,})
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        console.log(email);
+      } else {
+      }
+    });
+  }
 
   render() {
     return (
       <div className="App">
-       <Topbar></Topbar>
+       <Topbar checkLogin={this.userLoggedIn}></Topbar>
       </div>
     );
   }
