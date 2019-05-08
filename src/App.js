@@ -20,8 +20,9 @@ class App extends Component {
 
 
   render() {
+    var posts = ['elo', 'siema', 'pozdro'];
     return (
-      <PostBoard/>
+      <PostBoard posts={posts}/>
     );
   }
 }
