@@ -57,7 +57,7 @@ class Topbar extends React.Component {
     }
 
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
         <NavbarBrand href="#home">GastroBlog</NavbarBrand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
