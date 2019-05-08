@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import React, { Component } from "react";
-import "./App.css";
-=======
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 import './App.css';
->>>>>>> origin/master
 import * as firebase from "firebase/app";
 
 // Add the Firebase products that you want to use
