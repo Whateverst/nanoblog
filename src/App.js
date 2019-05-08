@@ -13,8 +13,9 @@ import Topbar from "./components/Topbar";
 class App extends Component {
   constructor(...args) {
     super(...args);
-    this.state = { logged: false };
+    this.state = { logged: false, username: "" };
     this.userLoggedIn = this.userLoggedIn.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
   }
 
   componentWillMount() {
@@ -22,26 +23,32 @@ class App extends Component {
   }
 
   userLoggedIn = () => {
-    this.setState({ logged: true });
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        console.log(email);
+        console.log(user.displayName);
+        this.setState({ logged: true, username: user.displayName });
       } else {
+        this.setState({ logged: false, username: null });
       }
     });
+  };
+
+  logoutUser = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(this.setState({ logged: false, nick: null }));
   };
 
   render() {
     return (
       <div className="App">
-        <Topbar checkLogin={this.userLoggedIn} />
+        <Topbar
+          checkLogin={this.userLoggedIn}
+          logged={this.state.logged}
+          username={this.state.username}
+          logout={this.logoutUser}
+        />
       </div>
     );
   }
