@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import Card from 'react-bootstrap/Card';
 
 class Post extends Component {
     render() {
         return (
-            <h1>{this.props.post}</h1>
+            <Card>
+                <Card.Header>{this.props.post}</Card.Header>
+                <Card.Body>
+                </Card.Body>
+            </Card>
         )
     }
 }
