@@ -6,7 +6,7 @@ class PostBoard extends Component {
         const posts = this.props.posts;
         
         var items = posts.map(function(post, index) {
-            return <Post post={post} key={index}/>
+            return <Post post={post} key={post.id}/>
         })
         return (
             <div>{items}</div>

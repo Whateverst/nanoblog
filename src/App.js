@@ -20,7 +20,23 @@ class App extends Component {
 
 
   render() {
-    var posts = ['elo', 'siema', 'pozdro'];
+    var posts = [
+      {
+        id: 1,
+        title: 'Mój przepis na pierogi',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 2,
+        title: 'Mój przepis na gofry',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 3,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      }
+    ];
     return (
       <PostBoard posts={posts}/>
     );
