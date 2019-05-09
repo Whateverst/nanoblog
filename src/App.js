@@ -1,5 +1,7 @@
-import React, { Component } from "react";
-import "./App.css";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom'
+import logo from './logo.svg';
+import './App.css';
 import * as firebase from "firebase/app";
 
 // Add the Firebase products that you want to use
@@ -10,11 +12,15 @@ import firebaseConfig from "../src/app/config/firebaseConfig";
 //components
 import Topbar from "./components/Topbar";
 
+// components
+import PostBoard from './components/PostBoard';
+
 class App extends Component {
   constructor(...args) {
     super(...args);
-    this.state = { logged: false };
+    this.state = { logged: false, username: "" };
     this.userLoggedIn = this.userLoggedIn.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
   }
 
   componentWillMount() {
@@ -22,26 +28,85 @@ class App extends Component {
   }
 
   userLoggedIn = () => {
-    this.setState({ logged: true });
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        console.log(email);
+        console.log(user.displayName);
+        this.setState({ logged: true, username: user.displayName });
       } else {
+        this.setState({ logged: false, username: null });
       }
     });
   };
 
+  logoutUser = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(this.setState({ logged: false, nick: null }));
+  };
+
   render() {
+    var posts = [
+      {
+        id: 1,
+        title: 'Mój przepis na pierogi',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 2,
+        title: 'Mój przepis na gofry',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 3,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 4,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 5,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 6,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 7,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 8,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 9,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      },
+      {
+        id: 10,
+        title: 'Mój przepis na beton',
+        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+      }
+    ];
     return (
       <div className="App">
-        <Topbar checkLogin={this.userLoggedIn} />
+        <Topbar
+          checkLogin={this.userLoggedIn}
+          logged={this.state.logged}
+          username={this.state.username}
+          logout={this.logoutUser}
+        />
+         <PostBoard posts={posts}/>
       </div>
     );
   }
