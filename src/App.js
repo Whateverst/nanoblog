@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 import './App.css';
 import * as firebase from "firebase/app";
+import JSON from './posts.json'
 
 // Add the Firebase products that you want to use
 import "firebase/auth";
@@ -18,7 +19,7 @@ import PostBoard from './components/PostBoard';
 class App extends Component {
   constructor(...args) {
     super(...args);
-    this.state = { logged: false, username: "" };
+    this.state = { logged: false, username: "", posts: JSON};
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
   }
@@ -46,58 +47,6 @@ class App extends Component {
   };
 
   render() {
-    var posts = [
-      {
-        id: 1,
-        title: 'Mój przepis na pierogi',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 2,
-        title: 'Mój przepis na gofry',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 3,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 4,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 5,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 6,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 7,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 8,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 9,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 10,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      }
-    ];
     return (
       <div className="App">
         <Topbar
@@ -106,7 +55,7 @@ class App extends Component {
           username={this.state.username}
           logout={this.logoutUser}
         />
-         <PostBoard posts={posts}/>
+         <PostBoard posts={this.state.posts}/>
       </div>
     );
   }
