@@ -14,7 +14,7 @@ class Post extends Component {
         let comments = this.props.post.comments.map(function(comment) {
             return (
                 <ListGroup.Item>
-                    {comment.username}: {comment.text}
+                    <span className="font-weight-bold">{comment.username}</span>: {comment.text}
                 </ListGroup.Item>
             )
         })
