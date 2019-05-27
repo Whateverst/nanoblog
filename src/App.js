@@ -18,13 +18,15 @@ import PostBoard from './components/PostBoard';
 class App extends Component {
   constructor(...args) {
     super(...args);
-    this.state = { logged: false, username: "" };
+    this.state = { logged: false, username: "", posts: []};
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
   }
 
   componentWillMount() {
     firebase.initializeApp(firebaseConfig);
+    //this.downloadPosts();
+    this.getPosts();
   }
 
   userLoggedIn = () => {
@@ -45,59 +47,18 @@ class App extends Component {
       .then(this.setState({ logged: false, nick: null }));
   };
 
+  async getPosts() {
+    const snapshot = await firebase.firestore().collection('posts').get()
+    let data = snapshot.docs.map(function(doc){
+      let post = doc.data();
+      post.id = doc.id;
+      return post;
+    })
+    this.setState({posts:data});
+  }
+
   render() {
-    var posts = [
-      {
-        id: 1,
-        title: 'Mój przepis na pierogi',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 2,
-        title: 'Mój przepis na gofry',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 3,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 4,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 5,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 6,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 7,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 8,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 9,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      },
-      {
-        id: 10,
-        title: 'Mój przepis na beton',
-        text: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-      }
-    ];
+    let posts = this.state.posts
     return (
       <div className="App">
         <Topbar
