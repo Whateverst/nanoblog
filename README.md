@@ -18,19 +18,15 @@
 
 ### Tablica z przepisami
 
-<Screen Here>
 
 ### Autoryzacja użytkownika
 
-<Screen Here>
   
 ### Dodawanie przepisów
 
-<Screen Here>
   
 ### Komentowanie przepisów
 
-<Screen Here>
   
 ## Składowe projektu:
 * [Prototyp](http://www.google.com)
