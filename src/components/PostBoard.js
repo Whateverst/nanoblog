@@ -10,7 +10,7 @@ class PostBoard extends Component {
                 return <Post post={post} key={post.id}/>
             })
             return (
-                <div class="post-board">{items}</div>
+                <div className="post-board">{items}</div>
             );
         }
         
