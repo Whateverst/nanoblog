@@ -1,6 +1,8 @@
 import React from "react";
 
 import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import * as firebase from "firebase/app";
 
 import "firebase/firestore";
@@ -8,32 +10,36 @@ import "firebase/firestore";
 class AddPostModal extends React.Component {
     constructor(...args) {
         super(...args);
+        this.state = {
+            post: {
+                title: 'title',
+                text: 'eeeee',
+                username: 'test',
+                ingredients: [
+                    {name:'test',calories:22,amount:22}
+                ],
+                comments: [
+                    {username:'test', text:'test'}
+                ]
+            }
+        }
     }
 
     componentWillMount() {
-        this.addPost();
+        //this.addPost();
     }
 
     addPost() {
         let db = firebase.firestore();
         let posts = db.collection('posts');
-        let post = {
-            title: 'test',
-            text: 'test',
-            username: 'test',
-            ingredients: [
-                {name:'test',calories:22,amount:22}
-            ],
-            comments: [
-                {username:'test', text:'test'}
-            ]
-        }
+        let post = this.state.post;
         let id = this.makeid(20)
         let postsRef = posts.doc(id); 
         postsRef.set({});
         postsRef.onSnapshot(doc => {
             postsRef.update(post);
         });
+        this.forceUpdate();
     }
 
     makeid(length) {
@@ -44,6 +50,12 @@ class AddPostModal extends React.Component {
            result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
+    }
+
+    handleChange(event) {
+        var post = this.state.post;
+        post[event.target.id] = event.target.value;
+        this.setState({post});
     }
 
     render() {
@@ -58,7 +70,19 @@ class AddPostModal extends React.Component {
                 <Modal.Title id="contained-modal-title-vcenter">Add Post</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    elo
+                    <Form.Group>
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control id="title" type="text" placeholder="Enter title" value={this.state.post.title} onChange={this.handleChange.bind(this)} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Text</Form.Label>
+                        <Form.Control id="text" type="text" placeholder="Enter text" value={this.state.post.text} onChange={this.handleChange.bind(this)} />
+                    </Form.Group>
+                    <Button variant="primary"
+                        onClick={()=>{
+                            this.addPost()
+                        }}
+                    >Dodaj</Button>
                 </Modal.Body>
             </Modal>
         )

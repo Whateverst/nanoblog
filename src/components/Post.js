@@ -4,16 +4,16 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 class Post extends Component {
     render() {
-        let ingredients = this.props.post.ingredients.map(function(ingredient) {
+        let ingredients = this.props.post.ingredients.map(function(ingredient, index) {
             return (
-                <ListGroup.Item>
+                <ListGroup.Item key={index}>
                     Nazwa: {ingredient.name}, Kalorie: {ingredient.calories}, Ilość: {ingredient.amount}
                 </ListGroup.Item>
             )
         });
-        let comments = this.props.post.comments.map(function(comment) {
+        let comments = this.props.post.comments.map(function(comment, index) {
             return (
-                <ListGroup.Item>
+                <ListGroup.Item key={index}>
                     <span className="font-weight-bold">{comment.username}</span>: {comment.text}
                 </ListGroup.Item>
             )
