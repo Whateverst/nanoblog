@@ -12,9 +12,9 @@ class AddPostModal extends React.Component {
         super(...args);
         this.state = {
             post: {
-                title: 'title',
-                text: 'eeeee',
-                username: 'test',
+                title: '',
+                text: '',
+                username: '',
                 ingredients: [
                     {name:'test',calories:22,amount:22}
                 ],
@@ -26,13 +26,16 @@ class AddPostModal extends React.Component {
     }
 
     componentWillMount() {
-        //this.addPost();
+        let post = this.state.post
+        post.username = this.props.username;
+        this.setState({post});
     }
 
     addPost() {
         let db = firebase.firestore();
         let posts = db.collection('posts');
         let post = this.state.post;
+        post.username = this.props.username;
         let id = this.makeid(20)
         let postsRef = posts.doc(id); 
         postsRef.set({});
@@ -67,7 +70,7 @@ class AddPostModal extends React.Component {
             centered
             >
                 <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Add Post</Modal.Title>
+                <Modal.Title id="contained-modal-title-vcenter">Dodaj post jako {this.props.username}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group>

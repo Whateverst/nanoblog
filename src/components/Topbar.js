@@ -90,6 +90,7 @@ class Topbar extends React.Component {
         <AddPostModal
           show={this.state.addPostModalShow}
           onHide={addPostModalClose}
+          username={this.props.username}
         />
       </Navbar>
     );
