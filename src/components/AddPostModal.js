@@ -16,10 +16,10 @@ class AddPostModal extends React.Component {
                 text: '',
                 username: '',
                 ingredients: [
-                    {name:'test',calories:22,amount:22}
+                    // {name:'test',calories:22,amount:22}
                 ],
                 comments: [
-                    {username:'test', text:'test'}
+                    // {username:'test', text:'test'}
                 ]
             }
         }
