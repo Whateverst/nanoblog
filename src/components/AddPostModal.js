@@ -92,10 +92,14 @@ class AddPostModal extends React.Component {
             amount: this.state.currentIngredientAmount
         }
         console.log(ingredient);
-        this.state.currentIngredients.push(ingredient);     
+        this.state.currentIngredients.push(ingredient);    
+        this.forceUpdate() 
     }
 
     render() {
+        let ingredients = this.state.currentIngredients.map(function(ingredient, index) {
+            return <li key={ingredient.name}>Name: {ingredient.name} Calories: {ingredient.calories} Amount: {ingredient.amount}</li>
+        })
         return (
             <Modal
             {...this.props}
@@ -117,6 +121,9 @@ class AddPostModal extends React.Component {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Składnik</Form.Label>
+                        <ul>
+                            {ingredients}
+                        </ul>
                         <Form.Control id="currentIngredient" type="text" placeholder="Enter name" value={this.state.currentIngredient} onChange={this.handleChange.bind(this)} />
                         <Form.Control id="currentIngredientAmount" type="number" placeholder="Enter amount" value={this.state.currentIngredientAmount} onChange={this.handleChange.bind(this)} />
                         <Button variant="primary" onClick={()=>{this.addIngredient()}}>
