@@ -60,7 +60,7 @@ class AddPostModal extends React.Component {
         postsRef.onSnapshot(doc => {
             postsRef.update(post);
         });
-        this.forceUpdate();
+        window.location.reload();
     }
 
     makeid(length) {
