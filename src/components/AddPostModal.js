@@ -12,7 +12,7 @@ class AddPostModal extends React.Component {
         super(...args);
         this.state = {
             currentIngredient: '',
-            currentIngredientAmount: undefined,
+            currentIngredientAmount: 0,
             currentIngredientInfo: '',
             currentPostTitle: '',
             currentPostText: '',
@@ -77,13 +77,22 @@ class AddPostModal extends React.Component {
         this.setState({[event.target.id]: event.target.value });
     }
 
-    addIngredient(event) {
+    async addIngredient(event) {
+        let url = 'https://api.edamam.com/api/food-database/parser?ingr='+ this.state.currentIngredient + '&app_id=788aa201&app_key=b9f07b57d0e38195a6ee3a7b9f392347'
+        const caloriesRequest = fetch(url)
+        .then(response => response.json())
+        .then(json => {
+            return json.hints[0].food.nutrients.ENERC_KCAL;
+        });
+        
+        const calories = await caloriesRequest;
         let ingredient = {
             name: this.state.currentIngredient,
-            calories: 22,
+            calories: calories,
             amount: this.state.currentIngredientAmount
         }
-        this.state.currentIngredients.push(ingredient);
+        console.log(ingredient);
+        this.state.currentIngredients.push(ingredient);     
     }
 
     render() {
