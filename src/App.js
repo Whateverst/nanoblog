@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import logo from "./logo.svg";
+import "./App.css";
 import * as firebase from "firebase/app";
 
 // Add the Firebase products that you want to use
@@ -13,12 +13,12 @@ import firebaseConfig from "./firebaseConfig";
 import Topbar from "./components/Topbar";
 
 // components
-import PostBoard from './components/PostBoard';
+import PostBoard from "./components/PostBoard";
 
 class App extends Component {
   constructor(...args) {
     super(...args);
-    this.state = { logged: false, username: "", posts: []};
+    this.state = { logged: false, username: "testowyusername", posts: [] };
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
   }
@@ -26,7 +26,6 @@ class App extends Component {
   componentWillMount() {
     firebase.initializeApp(firebaseConfig);
     //this.downloadPosts();
-    this.getPosts();
   }
 
   userLoggedIn = () => {
@@ -47,18 +46,8 @@ class App extends Component {
       .then(this.setState({ logged: false, nick: null }));
   };
 
-  async getPosts() {
-    const snapshot = await firebase.firestore().collection('posts').get()
-    let data = snapshot.docs.map(function(doc){
-      let post = doc.data();
-      post.id = doc.id;
-      return post;
-    })
-    this.setState({posts:data});
-  }
-
   render() {
-    let posts = this.state.posts
+    let posts = this.state.posts;
     return (
       <div className="App">
         <Topbar
@@ -67,7 +56,7 @@ class App extends Component {
           username={this.state.username}
           logout={this.logoutUser}
         />
-         <PostBoard posts={posts}/>
+        <PostBoard username={this.state.username} />
       </div>
     );
   }
