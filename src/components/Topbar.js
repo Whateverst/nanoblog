@@ -22,7 +22,10 @@ class Topbar extends React.Component {
     };
   }
 
+  addPostModalClose = () => {};
+
   render() {
+    const updatePosts = this.props.updatePosts;
     let loginModalClose = signIn => {
       this.setState({ registerModalShow: false });
       if (signIn === true) this.props.checkLogin();
@@ -39,10 +42,12 @@ class Topbar extends React.Component {
       this.setState({ addPostModalShow: false }, () => {
         // elo
       });
+      updatePosts();
     };
 
     let profileButton;
     let signOutButton;
+    let addPostButton;
 
     if (this.props.logged) {
       profileButton = (
@@ -64,16 +69,24 @@ class Topbar extends React.Component {
       signOutButton = null;
     }
 
+    if (this.props.logged) {
+      addPostButton = (
+        <NavLink onClick={() => this.setState({ addPostModalShow: true })}>
+          Dodaj post
+        </NavLink>
+      );
+    }
+
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-        <NavbarBrand href="/"><img src={require("../img/logo.png")}></img></NavbarBrand>
+        <NavbarBrand>GastroBlog</NavbarBrand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" />
           <Nav>
             {profileButton}
             {signOutButton}
-            <NavLink onClick={() => this.setState({ addPostModalShow: true })}>Dodaj post</NavLink>
+            {addPostButton}
           </Nav>
         </Navbar.Collapse>
 
