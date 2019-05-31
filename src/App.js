@@ -18,14 +18,29 @@ import PostBoard from "./components/PostBoard";
 class App extends Component {
   constructor(...args) {
     super(...args);
-    this.state = { logged: false, username: "testowyusername", posts: [] };
+    this.state = { logged: false, username: "", posts: [] };
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
+    this.getPosts = this.getPosts.bind(this);
   }
 
   componentWillMount() {
     firebase.initializeApp(firebaseConfig);
-    //this.downloadPosts();
+    this.getPosts();
+  }
+
+  async getPosts() {
+    const snapshot = await firebase
+      .firestore()
+      .collection("posts")
+      .get();
+    let data = snapshot.docs.map(function(doc) {
+      let post = doc.data();
+      post.id = doc.id;
+      return post;
+    });
+    data.sort((a, b) => b.votes - a.votes);
+    this.setState({ posts: data });
   }
 
   userLoggedIn = () => {
@@ -47,7 +62,7 @@ class App extends Component {
   };
 
   render() {
-    let posts = this.state.posts;
+    const updatePosts = this.getPosts;
     return (
       <div className="App">
         <Topbar
@@ -55,8 +70,14 @@ class App extends Component {
           logged={this.state.logged}
           username={this.state.username}
           logout={this.logoutUser}
+          updatePosts={updatePosts}
         />
-        <PostBoard username={this.state.username} />
+        <PostBoard
+          posts={this.state.posts}
+          updatePosts={updatePosts}
+          username={this.state.username}
+          logged={this.state.logged}
+        />
       </div>
     );
   }
