@@ -52,7 +52,8 @@ class AddPostModal extends React.Component {
       text: this.state.currentPostText,
       username: this.props.username,
       ingredients: this.state.currentIngredients,
-      comments: []
+      comments: [],
+      votes: 0
     };
     // add post to collection
     let postsRef = posts.doc(post.id);
@@ -60,7 +61,6 @@ class AddPostModal extends React.Component {
     postsRef.onSnapshot(doc => {
       postsRef.update(post);
     });
-    window.location.reload();
   }
 
   makeid(length) {
@@ -87,7 +87,8 @@ class AddPostModal extends React.Component {
       .then(response => response.json())
       .then(json => {
         return json.hints[0].food.nutrients.ENERC_KCAL;
-      });
+      })
+      .catch(err => console.log(err));
 
     const calories = await caloriesRequest;
     let ingredient = {
@@ -178,6 +179,7 @@ class AddPostModal extends React.Component {
             variant="primary"
             onClick={() => {
               this.addPost();
+              this.props.onHide(true);
             }}
           >
             Dodaj post
