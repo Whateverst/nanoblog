@@ -1,8 +1,6 @@
 .App {
   text-align: center;
-  background-image: url('../src/img/background.png');
-  background-position: center;
-  background-size: cover;
+  background-color: rgb(104,113,121);
 }
 .card{
   width: 70%;
@@ -32,6 +30,7 @@
 
 .post-board {
   margin-top: 5rem;
+  background-color: rgb(104,113,121);
 }
 
 @keyframes App-logo-spin {
