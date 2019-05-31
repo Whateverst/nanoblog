@@ -13,6 +13,9 @@ class AddPostModal extends React.Component {
         this.state = {
             currentIngredient: '',
             currentIngredientInfo: '',
+            currentPostTitle: '',
+            currentPostText: '',
+            /*
             post: {
                 title: '',
                 text: '',
@@ -24,22 +27,34 @@ class AddPostModal extends React.Component {
                     // {username:'test', text:'test'}
                 ]
             }
+            */
+           currentIngredients: []
         }
     }
 
     componentWillMount() {
+        /*
         let post = this.state.post
         post.username = this.props.username;
         this.setState({post});
+        */
     }
 
     addPost() {
+        // get collection data
         let db = firebase.firestore();
         let posts = db.collection('posts');
-        let post = this.state.post;
-        post.username = this.props.username;
-        let id = this.makeid(20)
-        let postsRef = posts.doc(id); 
+        // create post object
+        let post = {
+            id: this.makeid(20),
+            title: this.state.currentPostTitle,
+            text: this.state.currentPostText,
+            username: this.props.username,
+            ingredients: this.state.currentIngredients,
+            comments: []
+        }
+        // add post to collection
+        let postsRef = posts.doc(post.id); 
         postsRef.set({});
         postsRef.onSnapshot(doc => {
             postsRef.update(post);
@@ -58,13 +73,16 @@ class AddPostModal extends React.Component {
     }
 
     handleChange(event) {
-        var post = this.state.post;
-        post[event.target.id] = event.target.value;
-        this.setState({post});
+        this.setState({[event.target.id]: event.target.value });
     }
 
     addIngredient(event) {
-        //fuck
+        let ingredient = {
+            name: this.state.currentIngredient,
+            calories: 22,
+            amount: 22
+        }
+        this.state.currentIngredients.push(ingredient);
     }
 
     render() {
@@ -81,21 +99,24 @@ class AddPostModal extends React.Component {
                 <Modal.Body>
                     <Form.Group>
                         <Form.Label>Title</Form.Label>
-                        <Form.Control id="title" type="text" placeholder="Enter title" value={this.state.post.title} onChange={this.handleChange.bind(this)} />
+                        <Form.Control id="currentPostTitle" type="text" placeholder="Enter title" value={this.state.currentPostTitle} onChange={this.handleChange.bind(this)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Text</Form.Label>
-                        <Form.Control id="text" type="text" placeholder="Enter text" value={this.state.post.text} onChange={this.handleChange.bind(this)} />
+                        <Form.Control id="currentPostText" type="text" placeholder="Enter text" value={this.state.currentPostText} onChange={this.handleChange.bind(this)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Składnik</Form.Label>
-                        <Form.Control id="ingredient" type="text" placeholder="Enter name" value={this.state.currentIngredient} onChange={this.addIngredient.bind(this)} />
+                        <Form.Control id="currentIngredient" type="text" placeholder="Enter name" value={this.state.currentIngredient} onChange={this.handleChange.bind(this)} />
+                        <Button variant="primary" onClick={()=>{this.addIngredient()}}>
+                            Dodaj składnik
+                        </Button>
                     </Form.Group>
                     <Button variant="primary"
                         onClick={()=>{
                             this.addPost()
                         }}
-                    >Dodaj</Button>
+                    >Dodaj post</Button>
                 </Modal.Body>
             </Modal>
         )
