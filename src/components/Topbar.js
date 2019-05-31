@@ -9,6 +9,7 @@ import NavLink from "react-bootstrap/NavLink";
 //modals
 import UserLoginRegisterModal from "./UserLoginRegisterModal";
 import UserProfileModal from "./UserProfileModal";
+import AddPostModal from "./AddPostModal";
 
 class Topbar extends React.Component {
   constructor(...args) {
@@ -16,6 +17,7 @@ class Topbar extends React.Component {
     this.state = {
       registerModalShow: false,
       profileModalShow: false,
+      addPostModalShow: false,
       username: ""
     };
   }
@@ -30,6 +32,12 @@ class Topbar extends React.Component {
     let profileModalClose = () => {
       this.setState({ profileModalShow: false }, () => {
         this.props.checkLogin();
+      });
+    };
+
+    let addPostModalClose = () => {
+      this.setState({ addPostModalShow: false }, () => {
+        // elo
       });
     };
 
@@ -65,7 +73,7 @@ class Topbar extends React.Component {
           <Nav>
             {profileButton}
             {signOutButton}
-            <NavLink href="/posts">Dodaj post</NavLink>
+            <NavLink onClick={() => this.setState({ addPostModalShow: true })}>Dodaj post</NavLink>
           </Nav>
         </Navbar.Collapse>
 
@@ -77,6 +85,12 @@ class Topbar extends React.Component {
         <UserProfileModal
           show={this.state.profileModalShow}
           onHide={profileModalClose}
+        />
+
+        <AddPostModal
+          show={this.state.addPostModalShow}
+          onHide={addPostModalClose}
+          username={this.props.username}
         />
       </Navbar>
     );

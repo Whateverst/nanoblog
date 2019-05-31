@@ -5,12 +5,15 @@ class PostBoard extends Component {
     render() {
         const posts = this.props.posts;
         
-        var items = posts.map(function(post, index) {
-            return <Post post={post} key={post.id}/>
-        })
-        return (
-            <div>{items}</div>
-        );
+        if (posts !== []) {
+            var items = posts.map(function(post, index) {
+                return <Post post={post} key={post.id}/>
+            })
+            return (
+                <div className="post-board">{items}</div>
+            );
+        }
+        
     }
 }
 
