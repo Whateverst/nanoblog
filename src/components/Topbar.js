@@ -66,14 +66,16 @@ class Topbar extends React.Component {
 
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-        <NavbarBrand href="/"><img src={require("../img/logo.png")}></img></NavbarBrand>
+        <NavbarBrand>GastroBlog</NavbarBrand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" />
           <Nav>
             {profileButton}
             {signOutButton}
-            <NavLink onClick={() => this.setState({ addPostModalShow: true })}>Dodaj post</NavLink>
+            <NavLink onClick={() => this.setState({ addPostModalShow: true })}>
+              Dodaj post
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
 
