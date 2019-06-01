@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  background-color: rgb(104,113,121);
 }
 .card{
   width: 70%;
@@ -29,8 +28,8 @@
 }
 
 .post-board {
-  margin-top: 5rem;
-  background-color: rgb(104,113,121);
+  padding-top: 5rem;
+  background-color: #00172b;
 }
 
 @keyframes App-logo-spin {

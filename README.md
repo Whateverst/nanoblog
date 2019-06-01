@@ -34,6 +34,6 @@
   
 ## Składowe projektu:
 * [Prototyp](http://www.google.com)
-* [Aplikacja](http://www.google.com)
+* [Aplikacja](https://naonoblog.herokuapp.com)
 * [Trello](https://trello.com/b/xj4SRfNd)
 * [Repozytorium](http://www.github.com/afternun/nanoblog)
