@@ -48,6 +48,7 @@ class Topbar extends React.Component {
     let profileButton;
     let signOutButton;
     let addPostButton;
+    let posts = this.props.posts;
 
     if (this.props.logged) {
       profileButton = (
@@ -63,7 +64,7 @@ class Topbar extends React.Component {
       profileButton = (
         <NavLink onClick={() => this.setState({ registerModalShow: true })}>
           {" "}
-          Rejestracja i logowanie
+          Sign up / in
         </NavLink>
       );
       signOutButton = null;
@@ -72,7 +73,7 @@ class Topbar extends React.Component {
     if (this.props.logged) {
       addPostButton = (
         <NavLink onClick={() => this.setState({ addPostModalShow: true })}>
-          Dodaj post
+          Add recipe
         </NavLink>
       );
     }
@@ -98,6 +99,8 @@ class Topbar extends React.Component {
         <UserProfileModal
           show={this.state.profileModalShow}
           onHide={profileModalClose}
+          posts={posts}
+          username={this.props.username}
         />
 
         <AddPostModal
