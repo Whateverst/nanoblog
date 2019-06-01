@@ -35,7 +35,7 @@ class UserLoginRegisterModal extends React.Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .catch(function(error) {
-        alert("Coś poszło nie tak, spróbuj jeszcze raz!");
+        alert("Something went wrong, try again");
         console.log(error.message);
       });
 
@@ -60,7 +60,7 @@ class UserLoginRegisterModal extends React.Component {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(function(error) {
-        alert("Coś poszło nie tak, spróbuj jeszcze raz!");
+        alert("Something went wrong, try again");
         console.log(error.message);
       });
   };
@@ -70,22 +70,9 @@ class UserLoginRegisterModal extends React.Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
+      .then()
+      .catch(function(err) {
+        console.log(err);
       });
     this.props.onHide(true);
   };
@@ -129,10 +116,10 @@ class UserLoginRegisterModal extends React.Component {
           <Row>
             <Col>
               <Form.Group controlId="formUsername">
-                <Form.Label>Nazwa uzytkownika</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Nazwa uzytkownika"
+                  placeholder="Enter username"
                   onChange={this.handleChange("registerUsername")}
                 />
               </Form.Group>
@@ -142,10 +129,10 @@ class UserLoginRegisterModal extends React.Component {
           <Row>
             <Col>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Adres e-mail</Form.Label>
+                <Form.Label>E-mail address</Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="Adres email"
+                  placeholder="Enter e-mail"
                   onChange={this.handleChange("registerEmail")}
                 />
               </Form.Group>
@@ -155,10 +142,10 @@ class UserLoginRegisterModal extends React.Component {
           <Row>
             <Col>
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Hasło</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Hasło"
+                  placeholder="Enter password"
                   onChange={this.handleChange("registerPassword")}
                 />
               </Form.Group>
@@ -178,7 +165,7 @@ class UserLoginRegisterModal extends React.Component {
                 }}
                 style={{ marginRight: "5px" }}
               >
-                Zarejestruj się
+                Sign up
               </Button>
             </Col>
           </Row>
@@ -191,7 +178,7 @@ class UserLoginRegisterModal extends React.Component {
           <Row>
             <Col>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Adres e-mail</Form.Label>
+                <Form.Label>E-mail address</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -204,10 +191,10 @@ class UserLoginRegisterModal extends React.Component {
           <Row>
             <Col>
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Hasło</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Password"
+                  placeholder="Enter password"
                   onChange={this.handleChange("loginPassword")}
                 />
               </Form.Group>
@@ -223,7 +210,7 @@ class UserLoginRegisterModal extends React.Component {
                 }}
                 style={{ marginRight: "5px" }}
               >
-                Zaloguj się
+                Sign in
               </Button>
             </Col>
           </Row>
@@ -244,7 +231,7 @@ class UserLoginRegisterModal extends React.Component {
                 variant={this.state.registerButtonColor}
                 onClick={this.showSignUp}
               >
-                Rejestracja
+                <span style={{ fontSize: "smaller" }}>Register</span>
               </Button>
             </Col>
             <Col>
@@ -252,7 +239,7 @@ class UserLoginRegisterModal extends React.Component {
                 variant={this.state.loginButtonColor}
                 onClick={this.showSignIn}
               >
-                Logowanie
+                <span style={{ fontSize: "smaller" }}>Sign in</span>
               </Button>
             </Col>
             <Col>
@@ -260,7 +247,7 @@ class UserLoginRegisterModal extends React.Component {
                 variant={this.state.googleButtonColor}
                 onClick={this.loginWithGoogle}
               >
-                Google
+                <span style={{ fontSize: "smaller" }}>Google</span>
               </Button>
             </Col>
           </Row>
