@@ -43,24 +43,30 @@ class AddPostModal extends React.Component {
 
   addPost() {
     // get collection data
-    let db = firebase.firestore();
-    let posts = db.collection("posts");
-    // create post object
-    let post = {
-      id: this.makeid(20),
-      title: this.state.currentPostTitle,
-      text: this.state.currentPostText,
-      username: this.props.username,
-      ingredients: this.state.currentIngredients,
-      comments: [],
-      votes: 0
-    };
-    // add post to collection
-    let postsRef = posts.doc(post.id);
-    postsRef.set({});
-    postsRef.onSnapshot(doc => {
-      postsRef.update(post);
-    });
+    if (
+      this.state.currentPostTitle &&
+      this.state.currentPostText &&
+      this.state.currentIngredients
+    ) {
+      let db = firebase.firestore();
+      let posts = db.collection("posts");
+      // create post object
+      let post = {
+        id: this.makeid(20),
+        title: this.state.currentPostTitle,
+        text: this.state.currentPostText,
+        username: this.props.username,
+        ingredients: this.state.currentIngredients,
+        comments: [],
+        votes: 0
+      };
+      // add post to collection
+      let postsRef = posts.doc(post.id);
+      postsRef.set({});
+      postsRef.onSnapshot(doc => {
+        postsRef.update(post);
+      });
+    } else alert("Recipe is empty.");
   }
 
   makeid(length) {
@@ -122,12 +128,12 @@ class AddPostModal extends React.Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Dodaj post jako {this.props.username}
+            Add recipe as {this.props.username}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <Form.Label>Title</Form.Label>
+            <Form.Label>Name of the dish</Form.Label>
             <Form.Control
               id="currentPostTitle"
               type="text"
@@ -137,7 +143,7 @@ class AddPostModal extends React.Component {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Text</Form.Label>
+            <Form.Label>Recipe</Form.Label>
             <Form.Control
               as="textarea"
               rows="3"
@@ -149,7 +155,7 @@ class AddPostModal extends React.Component {
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Składnik</Form.Label>
+            <Form.Label>Ingredients</Form.Label>
             <ul>{ingredients}</ul>
             <Form.Control
               id="currentIngredient"
@@ -172,7 +178,7 @@ class AddPostModal extends React.Component {
                 this.addIngredient();
               }}
             >
-              Dodaj składnik
+              Add ingredient
             </Button>
           </Form.Group>
           <Button
@@ -182,7 +188,7 @@ class AddPostModal extends React.Component {
               this.props.onHide(true);
             }}
           >
-            Dodaj post
+            Add recipe
           </Button>
         </Modal.Body>
       </Modal>
