@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import logo from "./logo.svg";
 import "./App.css";
 import * as firebase from "firebase/app";
 
@@ -71,6 +69,7 @@ class App extends Component {
           username={this.state.username}
           logout={this.logoutUser}
           updatePosts={updatePosts}
+          posts={this.state.posts}
         />
         <PostBoard
           posts={this.state.posts}
