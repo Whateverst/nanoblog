@@ -140,7 +140,7 @@ class PostBoard extends React.Component {
                     </div>
                 </Card.Footer>
               </Card>
-              <Card id={post.id} className="cardComment" style={{ width: "90vw", display: 'none' }}>
+              <Card id={post.id} className="cardComment" style={{ width: "30vw", display: 'none',  textAlign: 'left'}}>
                 <Card.Header>Comments</Card.Header>
                 <ListGroup
                   className="list-group-flush"
