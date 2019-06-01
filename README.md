@@ -16,6 +16,9 @@
 
 ## Funkcjonalności
 
+### Profil użytkownika
+<img width="640" alt="Screen Shot 2019-06-01 at 13 37 59" src="https://user-images.githubusercontent.com/28458783/58748039-70cb7c00-8473-11e9-8479-0d24761f71ec.png">
+
 ### Tablica z przepisami
 
 
