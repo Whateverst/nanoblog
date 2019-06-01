@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import * as firebase from "firebase/app";
 
 import Card from "react-bootstrap/Card";
@@ -67,8 +67,8 @@ class PostBoard extends React.Component {
           ingredients = post.ingredients.map(function(ingredient, index) {
             return (
               <ListGroup.Item key={index}>
-                Nazwa: {ingredient.name}, Kalorie: {ingredient.calories}, Ilość:{" "}
-                {ingredient.amount}
+                Name: {ingredient.name}, Calories: {ingredient.calories},
+                Amount: {ingredient.amount}
               </ListGroup.Item>
             );
           });
@@ -97,7 +97,6 @@ class PostBoard extends React.Component {
                 <Card.Header
                   style={{
                     display: "flex",
-                    justifyContent: "flex-end",
                     alignItems: "center",
                     justifyContent: "space-between"
                   }}
@@ -117,7 +116,7 @@ class PostBoard extends React.Component {
                 <Card.Body>
                   <Card.Subtitle />
                   <Card.Text>{post.text}</Card.Text>
-                  <Card.Subtitle>Składniki</Card.Subtitle>
+                  <Card.Subtitle>Ingredients</Card.Subtitle>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   {ingredients}
@@ -127,7 +126,7 @@ class PostBoard extends React.Component {
                 </Card.Footer>
               </Card>
               <Card style={{ width: "90vw" }}>
-                <Card.Header>Komentarze</Card.Header>
+                <Card.Header>Comments</Card.Header>
                 <ListGroup
                   className="list-group-flush"
                   style={{ maxHeight: "200px", overflow: "scroll" }}
@@ -150,7 +149,7 @@ class PostBoard extends React.Component {
                       })
                     }
                   >
-                    Dodaj komentarz
+                    Add comment
                   </Button>
                 </Card.Body>
               </Card>
