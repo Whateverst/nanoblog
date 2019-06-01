@@ -91,8 +91,8 @@ class PostBoard extends React.Component {
         }
 
         return (
-          <div style={{ borderBottom: "10px solid white" }}>
-            <Card.Body style={{ width: "100vw" }}>
+          <div>
+            <Card.Body style={{ width: "100%" }}>
               <Card bg="light" style={{ width: "90vw" }}>
                 <Card.Header
                   style={{

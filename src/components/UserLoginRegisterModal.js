@@ -26,7 +26,7 @@ class UserLoginRegisterModal extends React.Component {
       signUp: true,
       loginButtonColor: "secondary",
       registerButtonColor: "primary",
-      googleButtonColor: "secondary"
+      googleButtonColor: "danger"
     };
   }
 

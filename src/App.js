@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import * as firebase from "firebase/app";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
@@ -12,6 +13,7 @@ import Topbar from "./components/Topbar";
 
 // components
 import PostBoard from "./components/PostBoard";
+import HomePage from "./components/HomePage";
 
 class App extends Component {
   constructor(...args) {
@@ -24,6 +26,9 @@ class App extends Component {
 
   componentWillMount() {
     firebase.initializeApp(firebaseConfig);
+    AOS.init({
+      duration : 3000
+    })
     this.getPosts();
   }
 
@@ -71,6 +76,7 @@ class App extends Component {
           updatePosts={updatePosts}
           posts={this.state.posts}
         />
+        <HomePage/>
         <PostBoard
           posts={this.state.posts}
           updatePosts={updatePosts}

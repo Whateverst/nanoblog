@@ -1,0 +1,14 @@
+
+.text2{
+    background-image: url('../img/background.png');
+    min-height: 70vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #00172b;
+}
+.logo{
+    padding-top: 14%;
+    color: white;
+    font-family: 'Clicker Script', cursive;
+    font-size: 10rem;
+}
