@@ -8,6 +8,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import '../style/css/post.css'
+
 library.add(faPlus);
 class PostBoard extends React.Component {
   constructor(props) {
@@ -21,6 +23,13 @@ class PostBoard extends React.Component {
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
+
+  showComment = (id) => {
+    this.id = id;
+    let displayBtn  = document.getElementById(id);
+    
+    displayBtn.style.display === 'none' ? displayBtn.style.display = 'block' : displayBtn.style.display = 'none';
+  }
 
   addComment = (postId, item) => {
     if (item.text && this.props.logged) {
@@ -59,6 +68,7 @@ class PostBoard extends React.Component {
     const addComment = this.addComment;
     const comment = this.state.comment;
     const upVotePost = this.upVotePost;
+    const showComment = this.showComment;
 
     if (posts !== []) {
       var items = posts.map(function(post) {
@@ -123,9 +133,14 @@ class PostBoard extends React.Component {
                 </ListGroup>
                 <Card.Footer>
                   Added by: <strong>{post.username} </strong>
+                  <div className="add_comment">
+                    <Button 
+                    className="showComments"
+                    onClick={() => showComment(post.id)}>Show comments</Button>
+                    </div>
                 </Card.Footer>
               </Card>
-              <Card style={{ width: "90vw" }}>
+              <Card id={post.id} className="cardComment" style={{ width: "90vw", display: 'none' }}>
                 <Card.Header>Comments</Card.Header>
                 <ListGroup
                   className="list-group-flush"
