@@ -11,6 +11,7 @@ import UserLoginRegisterModal from "./UserLoginRegisterModal";
 import UserProfileModal from "./UserProfileModal";
 import AddPostModal from "./AddPostModal";
 
+import '../style/css/home.css';
 class Topbar extends React.Component {
   constructor(...args) {
     super(...args);
@@ -80,7 +81,7 @@ class Topbar extends React.Component {
 
     return (
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-        <NavbarBrand>GastroBlog</NavbarBrand>
+        <NavbarBrand className="logo">GastroBlog</NavbarBrand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto" />
