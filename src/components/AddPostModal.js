@@ -41,7 +41,7 @@ class AddPostModal extends React.Component {
         */
   }
 
-  addPost() {
+  async addPost() {
     // get collection data
     if (
       this.state.currentPostTitle &&
@@ -60,10 +60,11 @@ class AddPostModal extends React.Component {
         comments: [],
         votes: 0
       };
+
       // add post to collection
       let postsRef = posts.doc(post.id);
       postsRef.set({});
-      postsRef.onSnapshot(doc => {
+      await postsRef.onSnapshot(doc => {
         postsRef.update(post);
       });
     } else alert("Recipe is empty.");

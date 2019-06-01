@@ -58,7 +58,7 @@ class Topbar extends React.Component {
         </NavLink>
       );
       signOutButton = (
-        <NavLink onClick={this.props.logout}> Wyloguj się </NavLink>
+        <NavLink onClick={this.props.logout}> Sign out </NavLink>
       );
     } else {
       profileButton = (
