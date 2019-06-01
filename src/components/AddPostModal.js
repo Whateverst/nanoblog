@@ -33,6 +33,17 @@ class AddPostModal extends React.Component {
     };
   }
 
+  emptyInputValues() {
+    this.setState({
+      currentIngredient: '',
+      currentIngredientAmount: 0,
+      currentPostTitle: '',
+      currentPostText: '',
+      currentIngredients: []
+    });
+    this.forceUpdate();
+  }
+
   componentWillMount() {
     /*
         let post = this.state.post
@@ -60,12 +71,13 @@ class AddPostModal extends React.Component {
         comments: [],
         votes: 0
       };
-
+      console.log(post)
       // add post to collection
       let postsRef = posts.doc(post.id);
       postsRef.set({});
       await postsRef.onSnapshot(doc => {
         postsRef.update(post);
+        this.emptyInputValues();
       });
     } else alert("Recipe is empty.");
   }
@@ -97,7 +109,10 @@ class AddPostModal extends React.Component {
       })
       .catch(err => console.log(err));
 
-    const calories = await caloriesRequest;
+    let calories = await caloriesRequest;
+    if(calories === undefined) {
+      calories = 0;
+    }
     let ingredient = {
       name: this.state.currentIngredient,
       calories: calories,
